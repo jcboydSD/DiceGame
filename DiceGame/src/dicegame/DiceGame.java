@@ -3,7 +3,8 @@ package dicegame;
 /******************************************************************************
  * DiceGame.java 
  * Programmer: @author jcboyd
- *
+ * Version 1.1
+ * 
  * This program simulates the rolling of dice and tests for odd & even 
  * and high & low
  *****************************************************************************/
@@ -26,19 +27,27 @@ public class DiceGame {
         //Input, Processing, Output
         System.out.println("Dice Prediction Game by JC Boyd\n");
 
-        do
+        do //repeat game if user enters y or Y
         {
-            System.out.print("Will the next total be High (H) or Low (L)? ");
-            highLowGuess = stdIn.nextLine();
-            System.out.print("Will the total be Even (E) or Odd (O)? ");
-            evenOddGuess = stdIn.nextLine();
+            do //repeat until valid range guess
+            {
+                System.out.print("Will the next total be High (H) or Low (L)? ");
+                highLowGuess = stdIn.nextLine();
+            } while (!highLowGuess.matches("h|H|l|L")); //end do
+            
+            do //repeat until valid odd or even guess
+            {
+                System.out.print("Will the total be Even (E) or Odd (O)? ");
+                evenOddGuess = stdIn.nextLine();
+            } while (!evenOddGuess.matches("e|E|o|O")); //end do
+            
             dieSum = rollDiceSum();            
             highLowResult = highLowCheck(dieSum, highLowGuess); //call method to check high or low
             evenOddResult = evenOddCheck(dieSum, evenOddGuess); //call method to check even or odd            
-            printResult(dieSum, highLowResult, evenOddResult); //call method to display win or lose msg 
+            printResult(dieSum, highLowResult, evenOddResult); //call method to display results 
             System.out.print("Do you want to play again? (y/n) ");
             playAgain = stdIn.nextLine();
-        } while (playAgain.equals("y") || playAgain.equals("Y"));
+        } while (playAgain.matches("y|Y")); //end do
 
     } //end main
     
@@ -52,7 +61,7 @@ public class DiceGame {
     //*************************************************************************
                 
     public static boolean highLowCheck(int dieSum, String highLowGuess)
-    //Checks for high or low and compares user's guess to determine win or lose
+    //Checks for high or low and compares user's guess to return result
     {
         if ((dieSum > 7) && (highLowGuess.equals("H") || highLowGuess.equals("h"))) 
         {
@@ -62,7 +71,7 @@ public class DiceGame {
         {
             return (boolean)(true);
         }
-        else //In case of wrong guess or when dieSum == 7
+        else //In case of wrong guess or when dieSum is 7
         {
             return (boolean)(false);
         } //end if        
@@ -71,7 +80,7 @@ public class DiceGame {
     //*************************************************************************            
                 
     public static boolean evenOddCheck(int dieSum, String evenOddGuess)
-    //Checks for even or odd and compares user's guess to determine win or lose
+    //Checks for even or odd and compares user's guess to return result
     {
         if ((dieSum % 2 == 0) && (evenOddGuess.equals("E") || evenOddGuess.equals("e"))) 
         {
@@ -90,7 +99,7 @@ public class DiceGame {
     //*************************************************************************            
                 
     public static void printResult(int dieSum, boolean highLowResult, boolean evenOddResult)
-    //Prints games results based on boolean results
+    //Prints game results based on boolean results
     {
         System.out.printf("The total is %d\n", dieSum);
         if (dieSum == 7)
