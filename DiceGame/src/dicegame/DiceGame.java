@@ -3,7 +3,7 @@ package dicegame;
 /******************************************************************************
  * DiceGame.java 
  * Programmer: @author jcboyd
- * Version 1.2 (created separate tests for high-low, even-odd, and user input)
+ * Version 1.4 (final version for submission)
  * 
  * This program simulates the rolling of dice, tests for odd & even 
  * and high & low, and compares with user predictions
